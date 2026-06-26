@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rahma Ops</title>
+
+<style>
+body {
+    margin: 0;
+    overflow: hidden;
+    background: #0b0f14;
+    font-family: Arial;
+}
+
+/* HUD */
+#hud {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    color: white;
+    z-index: 10;
+}
+
+#hpBar {
+    width: 200px;
+    height: 10px;
+    background: #333;
+    margin-top: 5px;
+}
+
+#hp {
+    height: 10px;
+    background: lime;
+    width: 100%;
+}
+
+/* Game Over */
+#gameOver {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 40px;
+    color: red;
+    display: none;
+}
+
+/* Joystick */
+#joystick {
+    position: fixed;
+    bottom: 40px;
+    left: 40px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    touch-action: none;
+}
+
+#stick {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: rgba(255,255,255,0.4);
+    border-radius: 50%;
+    left: 35px;
+    top: 35px;
+}
+
+/* Shoot button */
+#shoot {
+    position: fixed;
+    bottom: 60px;
+    right: 40px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: red;
+    color: white;
+    font-size: 16px;
+    border: none;
+}
+</style>
+</head>
+
+<body>
+
+<div id="hud">
+    <div>Rahma Ops</div>
+    <div>Score: <span id="score">0</span></div>
+    <div id="hpBar"><div id="hp"></div></div>
+</div>
+
+<div id="gameOver">💀 Mission Failed</div>
+
+<div id="joystick">
+    <div id="stick"></div>
+</div>
+
+<button id="shoot">SHOOT</button>
+
+<canvas id="c"></canvas>
+
+<script>
+const canvas = document.getElementById("c");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+/* PLAYER */
+const player = {
+    x: 200,
+    y: 200,
+    size: 25,
+    speed: 3,
+    hp: 100
+};
+
+/* BULLETS */
+let bullets = [];
+
+/* ENEMIES */
+let enemies = [];
+for (let i = 0; i < 8; i++) {
+    enemies.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: 25,
+        speed: 1.2
+    });
+}
+
+let score = 0;
+let gameOver = false;
+
+/* JOYSTICK */
+let joystick = document.getElementById("joystick");
+let stick = document.getElementById("stick");
+
+let joy = {x:0,y:0};
+
+let activeTouch = null;
+
+joystick.addEventListener("touchstart", e=>{
+    activeTouch = e.touches[0];
+});
+
+joystick.addEventListener("touchmove", e=>{
+    if (!activeTouch) return;
+
+    let t = e.touches[0];
+    let dx = t.clientX - activeTouch.clientX;
+    let dy = t.clientY - activeTouch.clientY;
+
+    let dist = Math.sqrt(dx*dx + dy*dy);
+    let max = 40;
+
+    if (dist > max) {
+        dx = dx/dist * max;
+        dy = dy/dist * max;
+    }
+
+    stick.style.transform = `translate(${dx}px,${dy}px)`;
+
+    joy.x = dx / max;
+    joy.y = dy / max;
+});
+
+joystick.addEventListener("touchend", ()=>{
+    stick.style.transform = `translate(0px,0px)`;
+    joy.x = 0;
+    joy.y = 0;
+});
+
+/* SHOOT */
+document.getElementById("shoot").onclick = ()=>{
+    bullets.push({
+        x: player.x,
+        y: player.y,
+        dx: 5,
+        dy: 0
+    });
+};
+
+/* UPDATE */
+function update() {
+    if (gameOver) return;
+
+    /* MOVE PLAYER */
+    player.x += joy.x * player.speed * 3;
+    player.y += joy.y * player.speed * 3;
+
+    /* ENEMIES FOLLOW */
+    enemies.forEach(e=>{
+        let dx = player.x - e.x;
+        let dy = player.y - e.y;
+        let d = Math.sqrt(dx*dx + dy*dy);
+
+        e.x += dx/d * e.speed;
+        e.y += dy/d * e.speed;
+
+        /* HIT PLAYER */
+        if (d < 25) {
+            player.hp -= 1;
+        }
+    });
+
+    /* BULLETS */
+    bullets.forEach(b=>{
+        b.x += b.dx;
+    });
+
+    /* COLLISION BULLET */
+    bullets.forEach((b,bi)=>{
+        enemies.forEach((e,ei)=>{
+            if (Math.abs(b.x-e.x)<20 && Math.abs(b.y-e.y)<20) {
+                enemies.splice(ei,1);
+                bullets.splice(bi,1);
+                score += 10;
+            }
+        });
+    });
+
+    /* HP */
+    document.getElementById("hp").style.width = player.hp + "%";
+    document.getElementById("score").innerText = score;
+
+    if (player.hp <= 0) {
+        gameOver = true;
+        document.getElementById("gameOver").style.display = "block";
+    }
+}
+
+/* DRAW */
+function draw() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    /* PLAYER (رحمة) */
+    ctx.fillStyle = "cyan";
+    ctx.fillRect(player.x, player.y, player.size, player.size);
+
+    /* ENEMIES */
+    ctx.fillStyle = "red";
+    enemies.forEach(e=>{
+        ctx.fillRect(e.x, e.y, e.size, e.size);
+    });
+
+    /* BULLETS */
+    ctx.fillStyle = "yellow";
+    bullets.forEach(b=>{
+        ctx.fillRect(b.x, b.y, 5, 5);
+    });
+}
+
+/* LOOP */
+function loop() {
+    update();
+    draw();
+    requestAnimationFrame(loop);
+}
+
+loop();
+</script>
+
+</body>
+</html>
