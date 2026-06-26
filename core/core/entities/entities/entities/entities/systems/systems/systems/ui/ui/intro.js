@@ -1,34 +1,34 @@
 const intro=document.getElementById("intro");
 
+window.gameStarted = false;
+
 const story=[
 "GTA WEB PRO MAX",
 "",
-"In a city controlled by chaos...",
-"laws are dead...",
-"and silence is louder than guns...",
+"A city where law collapsed...",
+"and chaos became normal...",
 "",
 "Her name is RAHMA.",
 "",
-"She was not born to survive...",
-"she was born to dominate.",
+"She does not survive the city...",
+"She owns it.",
 "",
-"Every bullet she fires...",
-"writes a new law.",
-"",
-"Welcome to her world."
+"Welcome."
 ];
 
 let i=0;
 
-function type(){
+function next(){
 if(i>=story.length){
 intro.style.display="none";
+window.gameStarted=true;
 return;
 }
 
 intro.innerText += story[i] + "\n";
 i++;
-setTimeout(type,800);
+
+setTimeout(next,700);
 }
 
-type();
+next();
