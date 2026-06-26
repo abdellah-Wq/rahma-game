@@ -1,4 +1,5 @@
 function update(){
+if(window.gameStarted === false) return;
 
 Player.update();
 
@@ -19,16 +20,21 @@ ctx.clearRect(0,0,canvas.width,canvas.height);
 ctx.save();
 ctx.translate(-Camera.x,-Camera.y);
 
-/* world */
+/* WORLD GRID (VISIBLE FIX) */
+ctx.fillStyle="#0f1722";
+ctx.fillRect(0,0,World.width,World.height);
+
+/* WALLS */
 World.walls.forEach(w=>{
 ctx.fillStyle="#1a2233";
 ctx.fillRect(w.x,w.y,w.w,w.h);
 });
 
-drawVehicles(ctx);
+/* ENTITIES */
 Player.draw(ctx);
 drawEnemies(ctx);
 drawPolice(ctx);
+drawVehicles(ctx);
 
 ctx.restore();
 }
@@ -38,4 +44,5 @@ update();
 draw();
 requestAnimationFrame(loop);
 }
+
 loop();
