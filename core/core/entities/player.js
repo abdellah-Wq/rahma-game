@@ -26,7 +26,7 @@ ctx.beginPath();
 ctx.arc(0,0,this.r,0,Math.PI*2);
 ctx.fill();
 
-/* weapon */
+/* direction gun */
 ctx.fillStyle="white";
 ctx.fillRect(10,-3,22,6);
 
