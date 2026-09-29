@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>For Rahma 🤍</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#05060a;--text:#f8f5ef;--muted:#aaa7ad;--accent:#e8c8d5}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:Montserrat,sans-serif}
+body{overflow-x:hidden}.stars{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:radial-gradient(#fff 1px,transparent 1px),radial-gradient(#fff 1px,transparent 1px);background-size:97px 97px,151px 151px;background-position:20px 40px,80px 10px;opacity:.18}
+.glow{position:fixed;width:70vw;height:70vw;left:50%;top:35%;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(232,200,213,.13),transparent 65%);filter:blur(10px);pointer-events:none}
+main{position:relative;z-index:1}.screen{min-height:100svh;display:grid;place-items:center;padding:34px 22px;text-align:center}
+.card{max-width:850px;width:100%}.eyebrow{font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--muted);margin-bottom:24px}
+h1,h2{font-family:"Cormorant Garamond",serif;font-weight:400;margin:0;line-height:.95}
+h1{font-size:clamp(70px,18vw,180px);letter-spacing:-4px}.subtitle{margin:24px auto 0;max-width:620px;color:#c8c4c8;font-weight:300;line-height:1.9;font-size:15px}
+.btn{margin-top:38px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.04);color:#fff;border-radius:999px;padding:15px 24px;font:inherit;cursor:pointer;transition:.3s}
+.btn:hover{background:#fff;color:#08090d;transform:translateY(-2px)}
+.reveal{opacity:0;transform:translateY(25px);transition:1s ease}.reveal.show{opacity:1;transform:none}
+.quote{font-family:"Cormorant Garamond",serif;font-size:clamp(30px,6vw,62px);line-height:1.05}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin-top:35px}
+.note{padding:26px;border:1px solid rgba(255,255,255,.1);border-radius:22px;background:rgba(255,255,255,.035);text-align:left;min-height:150px;cursor:pointer;transition:.35s}
+.note:hover{transform:translateY(-5px);border-color:rgba(232,200,213,.45)}
+.note b{font-family:"Cormorant Garamond",serif;font-size:26px;font-weight:500}.note p{color:#aaa7ad;font-size:12px;line-height:1.7;margin-bottom:0}
+.message{max-width:690px;margin:auto;text-align:left;font-family:"Cormorant Garamond",serif;font-size:25px;line-height:1.55;color:#eee}
+.signature{margin-top:25px;color:var(--accent);font-size:15px;font-family:Montserrat,sans-serif;letter-spacing:2px}
+footer{padding:50px 20px 80px;text-align:center;color:#777;font-size:11px;letter-spacing:2px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.82);backdrop-filter:blur(12px);display:none;place-items:center;padding:25px;z-index:5}.modal.open{display:grid}
+.modalbox{max-width:520px;padding:38px;border:1px solid rgba(255,255,255,.16);border-radius:25px;background:#0c0d13;text-align:center}.modalbox h3{font-family:"Cormorant Garamond",serif;font-size:40px;font-weight:400;margin:0 0 12px}.modalbox p{color:#bbb;line-height:1.8}.close{margin-top:20px}
+.scroll{position:absolute;bottom:25px;font-size:10px;letter-spacing:3px;color:#777}
+@media(max-width:500px){.message{font-size:22px}.note{min-height:125px}}
+</style>
+</head>
+<body>
+<div class="stars"></div><div class="glow"></div>
+<main>
+<section class="screen">
+<div class="card">
+<div class="eyebrow">A little universe made for one person</div>
+<h1>Rahma</h1>
+<p class="subtitle">If today feels heavy, stay here for a little while.<br>This place asks nothing from you.</p>
+<button class="btn" onclick="go('story')">Enter gently 🤍</button>
+</div><div class="scroll">SCROLL SLOWLY ↓</div>
+</section>
+
+<section class="screen" id="story">
+<div class="card reveal">
+<div class="eyebrow">For the days that feel too much</div>
+<div class="quote">“You don't have to be strong every minute.”</div>
+<p class="subtitle">You can rest. You can breathe. You can have a quiet day. Your worth does not become smaller because you are tired.</p>
+</div>
+</section>
+
+<section class="screen">
+<div class="card reveal">
+<div class="eyebrow">Open one when you need it</div>
+<h2 style="font-size:clamp(45px,9vw,90px)">Little letters</h2>
+<div class="grid">
+<div class="note" onclick="openNote('tired')"><b>When you're tired</b><p>Open this on the days your heart needs a chair.</p></div>
+<div class="note" onclick="openNote('sad')"><b>When you're sad</b><p>A few words for the quiet moments.</p></div>
+<div class="note" onclick="openNote('alone')"><b>When you feel alone</b><p>For the moments when everything feels distant.</p></div>
+<div class="note" onclick="openNote('smile')"><b>When you smile</b><p>Because I want to celebrate that too.</p></div>
+</div>
+</div>
+</section>
+
+<section class="screen">
+<div class="card reveal">
+<div class="eyebrow">One thing I hope you remember</div>
+<div class="message">
+Rahma, I cannot promise that every day will be easy.<br><br>
+But I can promise that your difficult days do not make you a burden. You are allowed to pause. You are allowed to breathe. You are allowed to ask for gentleness.<br><br>
+So tonight, forget everything that demands something from you for a moment. Drink some water. Put your phone down if you need to. Rest your heart.<br><br>
+And when you look at this page again, remember that someone made it because your smile matters to him.
+<div class="signature">— from someone who is praying for your peace</div>
+</div>
+</div>
+</section>
+
+<section class="screen">
+<div class="card reveal">
+<div class="eyebrow">The last page</div>
+<h2 style="font-size:clamp(52px,11vw,110px)">Stay gentle<br>with yourself.</h2>
+<p class="subtitle">There is no task waiting for you here.<br>Just a quiet little corner of the internet that belongs to you.</p>
+<button class="btn" onclick="document.getElementById('final').classList.add('open')">One last secret ✨</button>
+</div>
+</section>
+<footer>MADE WITH CARE · FOR RAHMA</footer>
+</main>
+
+<div class="modal" id="final"><div class="modalbox"><h3>Hey, Rahma…</h3><p>Whatever today looked like, you made it here. That is enough for tonight. May Allah put sakinah in your heart, ease what is heavy, and give you beautiful days ahead. 🤍</p><button class="btn close" onclick="this.closest('.modal').classList.remove('open')">Close gently</button></div></div>
+
+<div class="modal" id="note"><div class="modalbox"><h3 id="noteTitle"></h3><p id="noteText"></p><button class="btn close" onclick="this.closest('.modal').classList.remove('open')">Keep this with you</button></div></div>
+
+<script>
+const notes={
+tired:["For the tired days","You don't have to solve your whole life tonight. One breath. One glass of water. One small rest. Then another. Be kind to the person carrying all of this: you."],
+sad:["For the sad days","If your heart is hurting, you don't have to hide it behind a smile. Let the feeling pass through you without letting it define you. Tomorrow does not have to look like today."],
+alone:["For the lonely moments","Even when the world feels very far away, your existence matters. Reach toward someone you trust, make du'a, and give yourself permission to ask for company. You deserve care."],
+smile:["For your beautiful smile","This one is simple: I'm glad you smiled today. Protect that little light. I hope there will be many more reasons for it."]
+};
+function openNote(k){noteTitle.textContent=notes[k][0];noteText.textContent=notes[k][1];document.getElementById('note').classList.add('open')}
+function go(id){document.getElementById(id).scrollIntoView({behavior:'smooth'})}
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('show')}),{threshold:.2});
+document.querySelectorAll('.reveal').forEach(x=>io.observe(x));
+</script>
+</body>
+</html>
